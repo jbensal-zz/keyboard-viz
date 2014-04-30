@@ -7,6 +7,7 @@
         <meta name="description" content="This is a demonstration of a keyboard heatmap visualizing character distribution of text" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css" />
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -72,16 +73,13 @@
                     app.heatmap = heatmap;
                 };
                 app.init();
-                
-                var counts = {"Q": 2,"W": 3,"E": 4,"R": 3,"T": 2,"Y": 4,"U": 2, "I": 2,"O": 1,"P": 4};
+
+                var counts = {"Q": 2,"W": 3,"E": 4,"R": 3,"T": 2,"Y": 4,"U": 2, "I": 2,"O": 1,"P": 4, ":":3 };
 
                 var repaint = function(){
                     var data = [],
                         max = 0,
                         temp = {},
-                        //text = typeField.value,
-                        text = "some text1111;;;",
-                        tlen = text.length,
                         coordinates = app.coordinates;
 
                     for(var i = 0; i < Object.keys(counts).length; i++){
@@ -108,6 +106,7 @@
                     }
 
                     for(var k in temp){
+                        //console.log(k);
                         var xy = k.split(";");
                         var val = temp[k];
 
@@ -123,6 +122,7 @@
                 var $ = function(id){
                     return document.getElementById(id);
                 };
+
                 var gradients = [
                     { 0.45: "rgb(0,0,255)", 0.55: "rgb(0,255,255)", 0.65: "rgb(0,255,0)", 0.95: "yellow", 1.0: "rgb(255,0,0)"},
                     { 0.45: "rgb(255,255,255)", 0.70: "rgb(0,0,0)",0.9: "rgb(2,255,246)", 1.0: "rgb(3,34,66)"},
@@ -139,6 +139,26 @@
                     repaint();
                 }
                 repaint();
+
+                document.addEventListener("click", getClickPosition, false);
+
+                function getClickPosition(e) {
+                    var xPosition = e.clientX - 270;
+                    var yPosition = e.clientY - 195;
+                    console.log('x: ' + xPosition + ' y: '+ yPosition); //or return from this function
+
+                    for(var key in app.coordinates){
+                        //console.log("x: " + app.coordinates[key][0] + " y: " + app.coordinates[key][1]);
+                        var x = app.coordinates[key][0];
+                        var y = app.coordinates[key][1];
+
+                        //which key is pressed??
+                        if ( ((x-20) <= xPosition) && ((x+20) >= xPosition) && ((y-20) <= yPosition) && ((y+20) >= yPosition) ){
+                            console.log(key);
+                        }
+                    } // end for
+                } // end function
+
             })();
         </script>
     </body>
