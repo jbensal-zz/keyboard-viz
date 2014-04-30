@@ -72,12 +72,8 @@
                     app.heatmap = heatmap;
                 };
                 app.init();
-
-                //var typeField = document.getElementById("typefield");
-
-                var counts = {"Q": 2,"W": 3,"E": 4,"R": 3,"T": 2,"Y": 4,"U": 2, "I": 2,"O": 1,"P": 4};
                 
-                //console.log(Object.keys(counts).length);
+                var counts = {"Q": 2,"W": 3,"E": 4,"R": 3,"T": 2,"Y": 4,"U": 2, "I": 2,"O": 1,"P": 4};
 
                 var repaint = function(){
                     var data = [],
@@ -88,17 +84,12 @@
                         tlen = text.length,
                         coordinates = app.coordinates;
 
-                        //console.log(coordinates)
-
                     for(var i = 0; i < Object.keys(counts).length; i++){
-                        //console.log(i);
-                        //console.log(Object.keys(counts)[i]);
 
                         var key = Object.keys(counts)[i];
                         if(/^[A-Za-z]$/.test(key)){
                             key = key.toUpperCase();
                         }
-                        console.log(key);
 
                         if(app.config.exclude && app.EXCLUDES.indexOf(key) == -1){
                             var coord;
@@ -110,9 +101,7 @@
                                     if(!temp[joined])
                                         temp[joined] = 0;
 
-                                    //temp[joined] += 1;
                                     temp[joined] = counts[key];
-                                    console.log(counts[key]);
                                 }
                             }
                         }
