@@ -135,7 +135,6 @@
                 ];
                 // function for button
                 $("apply").onclick = function(){
-                   /*
                     var cfg = {};
                     //cfg.radius = Math.pow(10,$("fingertip").selectedIndex) +40;
                     //cfg.gradient = gradients[$("gradient").selectedIndex];
@@ -143,9 +142,6 @@
                     app.heatmap.cleanup();
                     app.init(cfg);
                     repaint();
-
-                    */
-                    reDraw();
                 }
                 repaint();
 
@@ -161,7 +157,7 @@
 
                 }
 
-                document.addEventListener("click", redrawOnClick, false);
+                //document.addEventListener("click", redrawOnClick, false);
 
                 function redrawOnClick(e) {
                     var xPosition = e.clientX - 320;
