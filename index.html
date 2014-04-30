@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Keyboard Heatmap | Realtime heatmap visualization of text character distribution</title>
+        <title>Keyboard Visualization</title>
         <meta name="description" content="This is a demonstration of a keyboard heatmap visualizing character distribution of text" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css" />
@@ -75,31 +75,44 @@
 
                 //var typeField = document.getElementById("typefield");
 
+                var counts = {"Q": 2,"W": 3,"E": 4,"R": 3,"T": 2,"Y": 4,"U": 2, "I": 2,"O": 1,"P": 4};
+                
+                //console.log(Object.keys(counts).length);
+
                 var repaint = function(){
                     var data = [],
                         max = 0,
                         temp = {},
                         //text = typeField.value,
-                        text = "some text",
+                        text = "some text1111;;;",
                         tlen = text.length,
                         coordinates = app.coordinates;
 
-                    for(var i=0; i < tlen; i++){
+                        //console.log(coordinates)
 
-                        var key = text.charAt(i);
+                    for(var i = 0; i < Object.keys(counts).length; i++){
+                        //console.log(i);
+                        //console.log(Object.keys(counts)[i]);
+
+                        var key = Object.keys(counts)[i];
                         if(/^[A-Za-z]$/.test(key)){
                             key = key.toUpperCase();
                         }
+                        console.log(key);
+
                         if(app.config.exclude && app.EXCLUDES.indexOf(key) == -1){
                             var coord;
                             coord = coordinates[key];
+                            //console.log(coord)
                             if(coord){
                                 for(var s = 0; s < coord.length; s += 2) {
                                     var joined = coord.slice(s, s+2).join(";");
                                     if(!temp[joined])
                                         temp[joined] = 0;
 
-                                    temp[joined] += 1;
+                                    //temp[joined] += 1;
+                                    temp[joined] = counts[key];
+                                    console.log(counts[key]);
                                 }
                             }
                         }
@@ -141,4 +154,3 @@
         </script>
     </body>
 </html>
-
