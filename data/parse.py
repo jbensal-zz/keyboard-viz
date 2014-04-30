@@ -85,8 +85,11 @@ di_out = open("digrams.data", "w")
 mono_out.write(json.dumps(monograms))
 
 json_dgram = {}
+for key in keys.values():
+    json_dgram[key] = {}
 for (k1,k2), v in digrams.iteritems():
-    json_dgram[k1+k2] = v
+    json_dgram[k1][k2] = v
+    json_dgram[k2][k1] = v
 
 di_out.write(json.dumps(json_dgram))
 
