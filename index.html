@@ -179,8 +179,8 @@
                     })(document.getElementById("keyboard"));
                     var xPosition = e.clientX - ele.x + document.documentElement.scrollLeft;
                     var yPosition = e.clientY - ele.y + document.documentElement.scrollTop;
-                    console.log('keyboardx: ' + ele.x + ' keyboardy: '+ ele.y);
-                    console.log('x: ' + xPosition + ' y: '+ yPosition); //or return from this function
+                    //console.log('keyboardx: ' + ele.x + ' keyboardy: '+ ele.y);
+                    //console.log('x: ' + xPosition + ' y: '+ yPosition); //or return from this function
 
                     // reset to top level data
                     if (xPosition <= 0){
@@ -209,7 +209,7 @@
                             break;
                         }
                         else{
-                            console.log("no key works");
+                            //console.log("no key works");
                         }
                     } // end for
 
@@ -219,7 +219,7 @@
                             if(k.indexOf(ans.toLowerCase()) != -1){
                                 //console.log("key " + k + " ans: " + ans.toLowerCase());
                                 //console.log(ans);
-                                console.log(digrams[ans.toLowerCase()]);
+                                //console.log(digrams[ans.toLowerCase()]);
                                 //counts = digrams[ans.toLowerCase()];
                                 reDraw(digrams[ans.toLowerCase()]);
                                 document.getElementById("key").innerHTML=ans;
