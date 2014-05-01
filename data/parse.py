@@ -167,10 +167,10 @@ def distance(first, second, weight):
     return weight * mult * scalar
     
 assignments = [None] * 37
-priority = [22,23,24,19,18,17,21,20,25,16,26] # home row
-priority += [8,9,7,10,6,11,12,5,4,13,3] # upper row
-priority += [32,30,31,33,34,29,25,36,28,27] # bottom row
-priority += [1,2,0] # top/terrible row
+priority = [22,23,24,19,18,17,21,20,25,16,26, \
+    8,9,7,10,6,11,12,5,4,13,3, \
+    32,30,31,33,34,29,25,36,28,27, \
+    1,2,0] # top/terrible row
 '''
 n = nodes_by_freq.pop()
 while len(priority) > 0:
@@ -187,14 +187,17 @@ while len(priority) > 0:
                 bestmatch = key
 '''
 
-curr = nodes_by_freq.pop()
-slot = priority.pop()
+curr = nodes_by_freq[0]
+slot = priority[0]
+del priority[0]
 assignments[slot] = curr.key
 
 w_scalar = 4
 # while we still have to assign things
 while len(priority) > 0:
-    
+    if curr == None:
+        break
+
     # determine the most importanct key to assign next
     importance_max = 0
     next_key = None
@@ -205,7 +208,7 @@ while len(priority) > 0:
         if importance > importance_max:
             importance_max = importance
             next_key = key
-
+    print "assigning", next_key, "next"
     # assign it to minimize distance
     min_dist = None
     new_slot = None
@@ -214,9 +217,10 @@ while len(priority) > 0:
         if min_dist == None or d < min_dist:
             min_dist = d
             new_slot = p
-    assignments[p] = next_key
-    
-    # set up for the next iteration
+            print "mindist =", d, "newslot =", p
+    assignments[new_slot] = next_key
+    print "assigned", next_key, "to slot", new_slot
+    # set up for the next iter\ation
     del priority[priority.index(p)] # would del p work? probs not
     slot = p
     curr = nodes[next_key]
