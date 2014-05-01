@@ -5,7 +5,7 @@ This is our final project for CS 467. We're going to visualize keylogger output!
 
 To Run
 ======
-Open index.html in a browser.
+Open index.html in a browser, or visit http://jbensal.github.io/keyboard-viz
 
 To Use Your Own Data
 ====================
