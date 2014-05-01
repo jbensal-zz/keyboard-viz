@@ -208,6 +208,8 @@ while len(priority) > 0:
         if importance > importance_max:
             importance_max = importance
             next_key = key
+    if(next_key == None):
+        break
     print "assigning", next_key, "next"
     # assign it to minimize distance
     min_dist = None
@@ -221,7 +223,7 @@ while len(priority) > 0:
     assignments[new_slot] = next_key
     print "assigned", next_key, "to slot", new_slot
     # set up for the next iter\ation
-    del priority[priority.index(p)] # would del p work? probs not
+    del priority[priority.index(new_slot)] # would del p work? probs not
     slot = p
     curr = nodes[next_key]
 
@@ -239,6 +241,8 @@ for x in keys.values():
 layout = open("layout.data", "w")
 layout.write(json.dumps(assignments))
 layout.close()
+
+
 
 '''
 numtokey = {}
@@ -275,8 +279,14 @@ qwerty = ['`', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', 
             'b', 'n', 'm', ',' '.' '/']
 
 '''
+
+print assignments[0:3]
+print assignments[3:16]
+print assignments[16:27]
+print assignments[27:37]
 # ASSUMPTIONS FOR KEYBOARD GOODNESS:
     # Alternating hands on common digrams is good
     # Home row > upper row > lower row
     # Prefer right hand over left hand
     # prefer index > middle > ring > pinky
+
