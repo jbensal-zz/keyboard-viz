@@ -48,7 +48,7 @@ for y in range(height):
     for x in range(width):
         if pix[x, y] == (255, 0, 0, 255):
             key = keys[index]
-            customlayout[key] = positions[index]
+            customlayout[str(key).upper()] = positions[index]
             if key == "\\":
                 key = "bslash"
             elif key == "/":
@@ -64,9 +64,9 @@ keyb.save("../img/CUSTOM.png")
 
 keyboard_layouts = open("../keyboard-layouts.js", 'r')
 firstline = keyboard_layouts.readline()
+customline = keyboard_layouts.readline()
 otherlayouts = keyboard_layouts.read()
 keyboard_layouts = open("../keyboard-layouts.js", 'w')
-print firstline
-keyboard_layouts.write(firstline+"\n")
+keyboard_layouts.write(firstline)
 keyboard_layouts.write("CUSTOM: "+json.dumps(customlayout)+",\n")
 keyboard_layouts.write(otherlayouts)
