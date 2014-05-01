@@ -136,12 +136,12 @@ upper = range(3,14)
 home = range(16,27)
 bottom = range(27,37)
 
-dist_samehand = 5
+dist_samehand = 6
 dist_otherhand = 0
 dist_samerow = 0
-dist_1row = 2
+dist_1row = 1
 dist_2row = 4
-dist_3row = 7
+dist_3row = 8
 
 scalar = 1
 
@@ -154,12 +154,12 @@ def distance(first, second, weight):
     if (first in upper and second in upper) or (first in home and second in home) or \
          (first in top and second in top) or (first in bottom and second in bottom):
         mult += dist_samerow
-    elif (first in top and second in upper) or (second in upper and first in top) or \
+    elif (first in top and second in upper) or (second in top and first in upper) or \
         (first in home and second in upper) or (second in home and first in upper) or \
         (first in home and second in bottom) or (second in home and first in bottom):
         mult += dist_1row
     elif (first in top and second in home) or (first in home and second in top) or \
-        (first in upper and second in bottom) or (first in bottom and second in home):
+        (first in upper and second in bottom) or (first in bottom and second in upper):
         mult += dist_2row
     else:
         mult += dist_3row
@@ -177,7 +177,7 @@ slot = priority[0]
 del priority[0]
 assignments[slot] = curr.key
 
-w_scalar = 1
+w_scalar = 10
 # while we still have to assign things
 while len(priority) > 0:
     if curr == None:
@@ -190,12 +190,13 @@ while len(priority) > 0:
         if key == curr.key or key in assignments:
             continue
         importance = weight * w_scalar + monograms[key]
+    #print "dist =", weight*mult, "first =", first, "second =", second, "weight=", weight
         if importance > importance_max:
             importance_max = importance
             next_key = key
     if(next_key == None):
         break
-  #  print "assigning", next_key, "next"
+    #print "assigning", next_key, "next"
     # assign it to minimize distance
     min_dist = None
     new_slot = None
@@ -204,12 +205,12 @@ while len(priority) > 0:
         if min_dist == None or d < min_dist:
             min_dist = d
             new_slot = p
-  #          print "mindist =", d, "newslot =", p
+            #print "mindist =", d, "newslot =", p
     assignments[new_slot] = next_key
-  #  print "assigned", next_key, "to slot", new_slot
+    #print "assigned", next_key, "to slot", new_slot
     # set up for the next iter\ation
     del priority[priority.index(new_slot)] # would del p work? probs not
-    slot = p
+    slot = new_slot
     curr = nodes[next_key]
 
 for x in keys.values():
