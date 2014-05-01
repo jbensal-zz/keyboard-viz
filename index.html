@@ -29,6 +29,7 @@
                     <option value="NORMAN">Norman</option>
                     <option value="QWERTY" selected>QWERTY</option>
                     <option value="WORKMAN">Workman</option>
+                    <option value="CUSTOM">Custom</option>
                 </select>
                 <div id="apply" class="button">
                     Select layout
@@ -98,7 +99,7 @@
                         if(/^[A-Za-z]$/.test(key)){
                             key = key.toUpperCase();
                         }
-                        
+
                         if(app.config.exclude && app.EXCLUDES.indexOf(key == -1)){
                             var coord;
                             coord = coordinates[key];
