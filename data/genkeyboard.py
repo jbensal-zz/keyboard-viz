@@ -21,4 +21,4 @@ for y in range(height):
             keyb.paste(Image.open('img/'+key+'.png','r'), (x, y))
             index += 1
 
-keyb.save("../img/custom.png")
+keyb.save("../img/CUSTOM.png")
