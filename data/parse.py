@@ -38,7 +38,7 @@ for val in keys.values():
 # "<-" is a backspace, ignore that string
 
 if len(sys.argv) < 2:
-    print "Missing argument: logfile."
+    print "Missing argument: logfile_to_parse."
     sys.exit(1)
 
 log = open(sys.argv[1])
@@ -136,12 +136,12 @@ upper = range(3,14)
 home = range(16,27)
 bottom = range(27,37)
 
-dist_samehand = 4
+dist_samehand = 5
 dist_otherhand = 0
 dist_samerow = 0
-dist_1row = 1
-dist_2row = 2
-dist_3row = 3
+dist_1row = 2
+dist_2row = 4
+dist_3row = 7
 
 scalar = 1
 
@@ -171,28 +171,13 @@ priority = [22,23,24,19,18,17,21,20,25,16,26, \
     8,9,7,10,6,11,12,5,4,13,3, \
     32,30,31,33,34,29,25,36,28,27, \
     1,2,0] # top/terrible row
-'''
-n = nodes_by_freq.pop()
-while len(priority) > 0:
-    slot = priority.pop()
-    assignments[slot] = n.key
-    r
-    mindist = None
-    bestmatch = None 
-    for key,weight in n.weights.iteritems():
-        for p in priority:
-            d = distance(slot, p, weight)
-            if mindist = None or d < mindist:
-                mindist = d
-                bestmatch = key
-'''
 
 curr = nodes_by_freq[0]
 slot = priority[0]
 del priority[0]
 assignments[slot] = curr.key
 
-w_scalar = 4
+w_scalar = 1
 # while we still have to assign things
 while len(priority) > 0:
     if curr == None:
@@ -210,7 +195,7 @@ while len(priority) > 0:
             next_key = key
     if(next_key == None):
         break
-    print "assigning", next_key, "next"
+  #  print "assigning", next_key, "next"
     # assign it to minimize distance
     min_dist = None
     new_slot = None
@@ -219,13 +204,17 @@ while len(priority) > 0:
         if min_dist == None or d < min_dist:
             min_dist = d
             new_slot = p
-            print "mindist =", d, "newslot =", p
+  #          print "mindist =", d, "newslot =", p
     assignments[new_slot] = next_key
-    print "assigned", next_key, "to slot", new_slot
+  #  print "assigned", next_key, "to slot", new_slot
     # set up for the next iter\ation
     del priority[priority.index(new_slot)] # would del p work? probs not
     slot = p
     curr = nodes[next_key]
+
+for x in keys.values():
+    if x not in assignments:
+        print x
 
 for x in keys.values():
     if x not in assignments:
@@ -234,51 +223,9 @@ for x in keys.values():
                 assignments[assignments.index(slot)] = x
                 break
 
-for x in keys.values():
-    if x not in assignments:
-        print x
-
 layout = open("layout.data", "w")
 layout.write(json.dumps(assignments))
 layout.close()
-
-
-
-'''
-numtokey = {}
-keytonum = {}
-i = 0
-for k in keys.values():
-    if key in keytonum.keys():
-        continue
-    keytonum[key] = i
-    i += 1
-
-for key,num in keytonum.iteritems():
-    numtokey[num] = key
-
-def total_dist(guess):
-    total = 0
-    for n1 in guess:
-        slot1 = guess.index(n1)
-        for n2 in guess:
-            slot2 = guess.index(n2)
-            if slot2 >= slot1
-                break
-            weight = 0
-            if n1 < n2:
-                weight = digrams[(numtokey[n1],numtokey[n2])]
-            else:
-                weight = digrams[(numtokey[n2],numtokey[n1])]
-            total += distance(slot1, slot2, weight)
-    return total
-
-
-qwerty = ['`', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\',
-            'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'z', 'x', 'c', 'v',
-            'b', 'n', 'm', ',' '.' '/']
-
-'''
 
 print assignments[0:3]
 print assignments[3:16]
@@ -289,4 +236,3 @@ print assignments[27:37]
     # Home row > upper row > lower row
     # Prefer right hand over left hand
     # prefer index > middle > ring > pinky
-
